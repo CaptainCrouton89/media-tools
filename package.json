@@ -1,0 +1,64 @@
+{
+  "name": "cli-boilerplate",
+  "version": "0.1.1",
+  "description": "Generic CLI boilerplate template for building command-line tools with oclif",
+  "type": "module",
+  "bin": {
+    "media-tool": "./bin/media-cli"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "bin",
+    "lib",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc && tsc-alias",
+    "prepublishOnly": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cli",
+    "oclif",
+    "boilerplate",
+    "template",
+    "command-line"
+  ],
+  "author": "Silas Rhyneer",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/cli-boilerplate.git"
+  },
+  "homepage": "https://github.com/your-username/cli-boilerplate#readme",
+  "bugs": {
+    "url": "https://github.com/your-username/cli-boilerplate/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@oclif/core": "^4.0.0",
+    "@r-cli/sdk": "^1.1.115",
+    "dotenv": "^16.4.5",
+    "puppeteer": "^21.0.0",
+    "puppeteer-screen-recorder": "^2.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/puppeteer": "^7.0.4",
+    "oclif": "^4.22.38",
+    "tsc-alias": "^1.8.16",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "oclif": {
+    "bin": "media-tool",
+    "dirname": "media-tool",
+    "commands": "./lib/commands",
+    "topicSeparator": ":"
+  }
+}
