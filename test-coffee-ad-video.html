@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <title>Morning Ritual - Premium Coffee Advertisement</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 1920px;
+            height: 1080px;
+            overflow: hidden;
+            background: #000;
+            font-family: 'Georgia', 'Times New Roman', serif;
+        }
+
+        .scene {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .scene.active {
+            opacity: 1;
+        }
+
+        /* Scene 1: Dawn Breaking (0-6s) */
+        #scene1 {
+            background: linear-gradient(135deg, #f4e4d7 0%, #d4a574 50%, #8b6f47 100%);
+            animation: warmGlow 6s ease-in-out;
+        }
+
+        @keyframes warmGlow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.1); }
+        }
+
+        #scene1 .content {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .coffee-beans {
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, #3e2723 0%, #2c1810 100%);
+            border-radius: 50%;
+            position: relative;
+            box-shadow:
+                0 30px 90px rgba(0,0,0,0.5),
+                inset 0 -20px 40px rgba(0,0,0,0.3),
+                inset 0 10px 30px rgba(139,111,71,0.2);
+            animation: beansPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes beansPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .bean {
+            position: absolute;
+            width: 60px;
+            height: 90px;
+            background: linear-gradient(135deg, #4a2c2a 0%, #6d4c41 50%, #3e2723 100%);
+            border-radius: 45% 45% 45% 45% / 50% 50% 50% 50%;
+            transform: rotate(var(--rotation));
+            box-shadow: inset -5px -5px 15px rgba(0,0,0,0.5),
+                        inset 5px 5px 15px rgba(139,111,71,0.3);
+        }
+
+        .bean::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 3px;
+            height: 70%;
+            background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.6), transparent);
+            border-radius: 2px;
+        }
+
+        .light-ray {
+            position: absolute;
+            top: -10%;
+            right: 10%;
+            width: 400px;
+            height: 1200px;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                rgba(255,223,186,0.3) 50%,
+                transparent 100%);
+            transform: rotate(-25deg);
+            animation: shimmer 4s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.7; }
+        }
+
+        .hand {
+            position: absolute;
+            top: 20%;
+            right: 15%;
+            width: 250px;
+            height: 300px;
+            opacity: 0;
+            animation: handReach 3s ease-out 1s forwards;
+        }
+
+        .hand-palm {
+            width: 180px;
+            height: 220px;
+            background: linear-gradient(135deg, #d4a574 0%, #c49563 100%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            position: relative;
+            box-shadow: -8px 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .finger {
+            position: absolute;
+            width: 50px;
+            height: 120px;
+            background: linear-gradient(to bottom, #d4a574 0%, #c49563 100%);
+            border-radius: 25px;
+            box-shadow: -3px 3px 10px rgba(0,0,0,0.2);
+        }
+
+        .finger:nth-child(1) { top: -60px; left: 20px; transform: rotate(-15deg); }
+        .finger:nth-child(2) { top: -70px; left: 60px; transform: rotate(-5deg); }
+        .finger:nth-child(3) { top: -65px; left: 100px; transform: rotate(5deg); }
+
+        @keyframes handReach {
+            0% {
+                opacity: 0;
+                transform: translate(100px, -50px) scale(0.8);
+            }
+            60% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(-20px, 10px) scale(0.95);
+            }
+        }
+
+        .narration {
+            position: absolute;
+            bottom: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 48px;
+            color: #2c1810;
+            text-align: center;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.3);
+            opacity: 0;
+            max-width: 90%;
+            line-height: 1.4;
+        }
+
+        #scene1 .narration {
+            animation: fadeInText 2s ease-in 1s forwards;
+        }
+
+        #scene2 .narration {
+            animation: fadeInText 2s ease-in 1.2s forwards;
+        }
+
+        #scene3 .narration {
+            animation: fadeInText 2s ease-in 2s forwards;
+        }
+
+        @keyframes fadeInText {
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        .dust-particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: radial-gradient(circle, rgba(255,255,255,0.6), transparent);
+            border-radius: 50%;
+            animation: floatDust 15s linear infinite;
+            animation-delay: var(--float-delay);
+        }
+
+        @keyframes floatDust {
+            0% {
+                transform: translate(var(--start-x), var(--start-y));
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate(var(--end-x), var(--end-y));
+                opacity: 0;
+            }
+        }
+
+        /* Scene 2: The Craft (6-14s) */
+        #scene2 {
+            background: linear-gradient(to bottom, #3e2c1f 0%, #5d4037 100%);
+        }
+
+        .craft-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 60px;
+            padding: 100px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .craft-item {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        #scene2.active .craft-item:nth-child(1) {
+            animation: slideInCraft 0.8s ease-out 0.3s forwards;
+        }
+
+        #scene2.active .craft-item:nth-child(2) {
+            animation: slideInCraft 0.8s ease-out 0.6s forwards;
+        }
+
+        #scene2.active .craft-item:nth-child(3) {
+            animation: slideInCraft 0.8s ease-out 0.9s forwards;
+        }
+
+        @keyframes slideInCraft {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .grinder {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, #424242 0%, #212121 100%);
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6),
+                        inset 0 -10px 30px rgba(0,0,0,0.4);
+        }
+
+        .grinder::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+            background: radial-gradient(circle, #3e2723 0%, #2c1810 100%);
+            border-radius: 50%;
+            animation: rotate 3s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .portafilter {
+            width: 250px;
+            height: 150px;
+            background: linear-gradient(180deg, #1a1a1a 0%, #424242 100%);
+            border-radius: 20px 20px 50% 50%;
+            position: relative;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
+
+        .coffee-grounds {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 80px;
+            background: radial-gradient(ellipse at center, #3e2723 0%, #2c1810 100%);
+            border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.8);
+        }
+
+        .tamp {
+            width: 200px;
+            height: 250px;
+            position: relative;
+            animation: tampDown 2s ease-in-out infinite;
+        }
+
+        @keyframes tampDown {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(15px); }
+        }
+
+        .tamp-handle {
+            width: 80px;
+            height: 180px;
+            background: linear-gradient(to bottom, #8d6e63 0%, #5d4037 100%);
+            border-radius: 40px 40px 10px 10px;
+            margin: 0 auto;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
+
+        .tamp-base {
+            width: 150px;
+            height: 70px;
+            background: linear-gradient(to bottom, #757575 0%, #424242 100%);
+            border-radius: 50%;
+            margin: -10px auto 0;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+        }
+
+        .craft-label {
+            font-size: 32px;
+            color: #d4a574;
+            margin-top: 30px;
+            text-align: center;
+            font-weight: 300;
+            letter-spacing: 3px;
+        }
+
+        /* Scene 3: The Moment (14-22s) */
+        #scene3 {
+            background: linear-gradient(to right, #f5f5dc 0%, #faf0e6 100%);
+        }
+
+        .moment-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 100px;
+            width: 100%;
+            height: 100%;
+            padding: 100px;
+        }
+
+        .espresso-cup {
+            position: relative;
+            width: 400px;
+            height: 400px;
+        }
+
+        .cup {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, #ffffff 0%, #f5f5f5 100%);
+            border-radius: 0 0 45% 45%;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2),
+                        inset 0 -20px 40px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .coffee-liquid {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85%;
+            height: 0%;
+            background: linear-gradient(to bottom, #3e2723 0%, #2c1810 50%, #1a0f0a 100%);
+            border-radius: 50%;
+            box-shadow: inset 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        #scene3.active .coffee-liquid {
+            animation: fillCup 2.5s ease-in-out forwards;
+        }
+
+        @keyframes fillCup {
+            0% { height: 0%; }
+            60% { height: 75%; }
+            100% { height: 70%; }
+        }
+
+        .espresso-pour {
+            position: absolute;
+            top: 25%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 120px;
+            background: linear-gradient(to bottom, rgba(62,39,35,0.9), rgba(62,39,35,0.6));
+            opacity: 0;
+            filter: blur(1px);
+        }
+
+        #scene3.active .espresso-pour {
+            animation: pouringStream 2s ease-in-out forwards;
+        }
+
+        @keyframes pouringStream {
+            0% {
+                opacity: 0;
+                height: 0;
+            }
+            20% {
+                opacity: 1;
+                height: 150px;
+            }
+            70% {
+                opacity: 1;
+                height: 150px;
+            }
+            100% {
+                opacity: 0;
+                height: 0;
+            }
+        }
+
+        .crema {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85%;
+            height: 15%;
+            background: linear-gradient(to bottom, #d4a574 0%, #a67c52 100%);
+            border-radius: 50%;
+            opacity: 0;
+        }
+
+        #scene3.active .crema {
+            animation: formCrema 1.5s ease-out 1.5s forwards;
+        }
+
+        @keyframes formCrema {
+            to { opacity: 1; }
+        }
+
+        .steam {
+            position: absolute;
+            top: -20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 300px;
+        }
+
+        .steam-particle {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: rise 4s ease-in infinite;
+            animation-delay: var(--delay);
+        }
+
+        @keyframes rise {
+            0% {
+                transform: translateX(-50%) translateY(0) scale(1);
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateX(calc(-50% + var(--drift))) translateY(-300px) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        .person-silhouette {
+            width: 500px;
+            height: 700px;
+            background: linear-gradient(135deg, #8d6e63 0%, #5d4037 100%);
+            border-radius: 50% 50% 0 0 / 60% 60% 0 0;
+            position: relative;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+            opacity: 0;
+        }
+
+        #scene3.active .person-silhouette {
+            animation: personAppear 1.2s ease-out 1s forwards;
+        }
+
+        @keyframes personAppear {
+            to { opacity: 1; }
+        }
+
+        .person-silhouette::before {
+            content: '';
+            position: absolute;
+            top: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 180px;
+            background: radial-gradient(circle, #6d4c41 0%, #4e342e 100%);
+            border-radius: 50%;
+        }
+
+        .smile {
+            position: absolute;
+            top: 22%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 50px;
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top: none;
+            border-radius: 0 0 100px 100px;
+            opacity: 0;
+        }
+
+        #scene3.active .smile {
+            animation: smileAppear 0.8s ease-out 2.5s forwards;
+        }
+
+        @keyframes smileAppear {
+            to { opacity: 1; }
+        }
+
+        .cup-in-hand {
+            position: absolute;
+            bottom: 15%;
+            right: -15%;
+            width: 200px;
+            height: 180px;
+            background: linear-gradient(to bottom, #ffffff 0%, #f5f5f5 100%);
+            border-radius: 0 0 45% 45%;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            transform: translateY(100px);
+            opacity: 0;
+        }
+
+        #scene3.active .cup-in-hand {
+            animation: cupLift 1.5s ease-out 1.8s forwards;
+        }
+
+        @keyframes cupLift {
+            0% {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            60% {
+                transform: translateY(-20px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .cup-in-hand::before {
+            content: '';
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85%;
+            height: 60%;
+            background: linear-gradient(to bottom, #2c1810 0%, #1a0f0a 100%);
+            border-radius: 50%;
+        }
+
+        .cup-steam {
+            position: absolute;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 80px;
+        }
+
+        .cup-steam .steam-particle {
+            animation: riseFromCup 3s ease-in infinite;
+        }
+
+        @keyframes riseFromCup {
+            0% {
+                transform: translateX(-50%) translateY(0) scale(1);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateX(calc(-50% + var(--drift))) translateY(-80px) scale(1.8);
+                opacity: 0;
+            }
+        }
+
+        /* Scene 4: Brand Reveal (22-30s) */
+        #scene4 {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        }
+
+        .brand-container {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .product-bag {
+            width: 400px;
+            height: 550px;
+            background: linear-gradient(135deg, #8d6e63 0%, #5d4037 100%);
+            border-radius: 30px;
+            position: relative;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            padding: 60px;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        #scene4.active .product-bag {
+            animation: bagReveal 1.2s ease-out 0.3s forwards;
+        }
+
+        @keyframes bagReveal {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .product-bag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
+            border-radius: 30px;
+        }
+
+        .brand-logo {
+            font-size: 72px;
+            font-weight: 700;
+            color: #ffd700;
+            letter-spacing: 8px;
+            text-shadow:
+                0 0 20px rgba(255,215,0,0.8),
+                0 0 40px rgba(255,215,0,0.5),
+                0 4px 8px rgba(0,0,0,0.5);
+            position: relative;
+            z-index: 1;
+            animation: logoGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes logoGlow {
+            0%, 100% {
+                text-shadow:
+                    0 0 20px rgba(255,215,0,0.8),
+                    0 0 40px rgba(255,215,0,0.5),
+                    0 4px 8px rgba(0,0,0,0.5);
+            }
+            50% {
+                text-shadow:
+                    0 0 30px rgba(255,215,0,1),
+                    0 0 60px rgba(255,215,0,0.7),
+                    0 4px 8px rgba(0,0,0,0.5);
+            }
+        }
+
+        .sunrise-icon {
+            width: 150px;
+            height: 150px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .sun {
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, #ffd700 0%, #ffaa00 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 60px rgba(255,215,0,0.6);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .sun-ray {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 4px;
+            height: 80px;
+            background: linear-gradient(to bottom, #ffd700, transparent);
+            transform-origin: center -75px;
+            transform: rotate(calc(var(--ray-angle) * 1deg)) translateX(-50%);
+            animation: rotate-rays 20s linear infinite;
+        }
+
+        @keyframes rotate-rays {
+            from { transform: rotate(calc(var(--ray-angle) * 1deg)) translateX(-50%); }
+            to { transform: rotate(calc(var(--ray-angle) * 1deg + 360deg)) translateX(-50%); }
+        }
+
+        .brand-tagline {
+            font-size: 56px;
+            color: #d4a574;
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-shadow: 0 3px 6px rgba(0,0,0,0.4);
+            opacity: 0;
+        }
+
+        #scene4.active .brand-tagline {
+            animation: fadeInText 2s ease-in 1.5s forwards;
+        }
+
+        .product-cup {
+            position: absolute;
+            bottom: -80px;
+            right: -100px;
+            width: 250px;
+            height: 250px;
+            background: linear-gradient(to bottom, #ffffff 0%, #f5f5f5 100%);
+            border-radius: 0 0 45% 45%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .product-cup::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85%;
+            height: 70%;
+            background: linear-gradient(to bottom, #2c1810 0%, #1a0f0a 100%);
+            border-radius: 50%;
+        }
+
+        .product-steam {
+            position: absolute;
+            top: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 120px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Scene 1: Dawn Breaking (0-6s) -->
+    <div class="scene active" id="scene1">
+        <div class="content">
+            <div class="light-ray"></div>
+            <div class="coffee-beans" id="beanContainer"></div>
+            <div class="hand">
+                <div class="hand-palm">
+                    <div class="finger"></div>
+                    <div class="finger"></div>
+                    <div class="finger"></div>
+                </div>
+            </div>
+            <div id="dustContainer"></div>
+            <div class="narration">Every great day starts with a choice.</div>
+        </div>
+    </div>
+
+    <!-- Scene 2: The Craft (6-14s) -->
+    <div class="scene" id="scene2">
+        <div class="craft-grid">
+            <div class="craft-item">
+                <div class="grinder"></div>
+                <div class="craft-label">GRINDING</div>
+            </div>
+            <div class="craft-item">
+                <div class="portafilter">
+                    <div class="coffee-grounds"></div>
+                </div>
+                <div class="craft-label">MEASURING</div>
+            </div>
+            <div class="craft-item">
+                <div class="tamp">
+                    <div class="tamp-handle"></div>
+                    <div class="tamp-base"></div>
+                </div>
+                <div class="craft-label">TAMPING</div>
+            </div>
+        </div>
+        <div class="narration" style="color: #d4a574;">Sourced from single-origin farms. Roasted to perfection. Crafted with care.</div>
+    </div>
+
+    <!-- Scene 3: The Moment (14-22s) -->
+    <div class="scene" id="scene3">
+        <div class="moment-container">
+            <div class="espresso-cup">
+                <div class="cup">
+                    <div class="espresso-pour"></div>
+                    <div class="coffee-liquid"></div>
+                    <div class="crema"></div>
+                </div>
+                <div class="steam" id="steamContainer"></div>
+            </div>
+            <div class="person-silhouette">
+                <div class="smile"></div>
+                <div class="cup-in-hand">
+                    <div class="cup-steam" id="cupSteamContainer"></div>
+                </div>
+            </div>
+        </div>
+        <div class="narration" style="color: #3e2723;">This isn't just coffee. This is your moment.</div>
+    </div>
+
+    <!-- Scene 4: Brand Reveal (22-30s) -->
+    <div class="scene" id="scene4">
+        <div class="brand-container">
+            <div class="product-bag">
+                <div class="sunrise-icon">
+                    <div class="sun"></div>
+                    <div class="sun-ray" style="--ray-angle: 0;"></div>
+                    <div class="sun-ray" style="--ray-angle: 45;"></div>
+                    <div class="sun-ray" style="--ray-angle: 90;"></div>
+                    <div class="sun-ray" style="--ray-angle: 135;"></div>
+                    <div class="sun-ray" style="--ray-angle: 180;"></div>
+                    <div class="sun-ray" style="--ray-angle: 225;"></div>
+                    <div class="sun-ray" style="--ray-angle: 270;"></div>
+                    <div class="sun-ray" style="--ray-angle: 315;"></div>
+                </div>
+                <div class="brand-logo">AURORA</div>
+                <div class="product-cup">
+                    <div class="product-steam" id="productSteamContainer"></div>
+                </div>
+            </div>
+            <div class="brand-tagline">Elevate Your Morning</div>
+        </div>
+    </div>
+
+    <script>
+        // Generate coffee beans in circular pattern
+        const beanContainer = document.getElementById('beanContainer');
+        const beanCount = 28;
+        const radius = 350;
+
+        for (let i = 0; i < beanCount; i++) {
+            const bean = document.createElement('div');
+            bean.className = 'bean';
+            const angle = (i / beanCount) * Math.PI * 2;
+            const r = radius * (0.5 + Math.random() * 0.5);
+            const x = Math.cos(angle) * r;
+            const y = Math.sin(angle) * r;
+            const rotation = Math.random() * 360;
+
+            bean.style.left = `calc(50% + ${x}px)`;
+            bean.style.top = `calc(50% + ${y}px)`;
+            bean.style.setProperty('--rotation', `${rotation}deg`);
+            bean.style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
+
+            beanContainer.appendChild(bean);
+        }
+
+        // Generate floating dust particles for atmosphere
+        const dustContainer = document.getElementById('dustContainer');
+        for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'dust-particle';
+            const startX = Math.random() * 1920;
+            const startY = Math.random() * 1080;
+            const endX = startX + (Math.random() - 0.5) * 300;
+            const endY = startY - 200 - Math.random() * 300;
+
+            particle.style.setProperty('--start-x', `${startX}px`);
+            particle.style.setProperty('--start-y', `${startY}px`);
+            particle.style.setProperty('--end-x', `${endX}px`);
+            particle.style.setProperty('--end-y', `${endY}px`);
+            particle.style.setProperty('--float-delay', `${Math.random() * 5}s`);
+
+            dustContainer.appendChild(particle);
+        }
+
+        // Generate steam particles for espresso cup
+        const steamContainer = document.getElementById('steamContainer');
+        for (let i = 0; i < 8; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'steam-particle';
+            particle.style.setProperty('--delay', `${i * 0.5}s`);
+            particle.style.setProperty('--drift', `${(Math.random() - 0.5) * 100}px`);
+            steamContainer.appendChild(particle);
+        }
+
+        // Generate steam particles for cup in hand
+        const cupSteamContainer = document.getElementById('cupSteamContainer');
+        for (let i = 0; i < 5; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'steam-particle';
+            particle.style.setProperty('--delay', `${i * 0.6}s`);
+            particle.style.setProperty('--drift', `${(Math.random() - 0.5) * 60}px`);
+            cupSteamContainer.appendChild(particle);
+        }
+
+        // Generate steam particles for product cup
+        const productSteamContainer = document.getElementById('productSteamContainer');
+        for (let i = 0; i < 6; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'steam-particle';
+            particle.style.setProperty('--delay', `${i * 0.5}s`);
+            particle.style.setProperty('--drift', `${(Math.random() - 0.5) * 80}px`);
+            productSteamContainer.appendChild(particle);
+        }
+
+        // Scene transitions - 30 second total timing
+        const scenes = document.querySelectorAll('.scene');
+        const sceneDurations = [6000, 8000, 8000, 8000]; // Scene 1: 0-6s, Scene 2: 6-14s, Scene 3: 14-22s, Scene 4: 22-30s
+
+        let currentScene = 0;
+
+        function transitionToNextScene() {
+            if (currentScene < scenes.length - 1) {
+                // Fade out current scene
+                scenes[currentScene].style.transition = 'opacity 1s ease-out';
+                scenes[currentScene].classList.remove('active');
+
+                currentScene++;
+
+                // Fade in next scene
+                scenes[currentScene].style.transition = 'opacity 1s ease-in';
+                scenes[currentScene].classList.add('active');
+
+                if (currentScene < scenes.length - 1) {
+                    setTimeout(transitionToNextScene, sceneDurations[currentScene]);
+                }
+            }
+        }
+
+        // Start transitions after first scene
+        setTimeout(transitionToNextScene, sceneDurations[0]);
+    </script>
+</body>
+</html>

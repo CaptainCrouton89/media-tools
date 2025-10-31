@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <title>Scene 2: The Craft</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 1920px;
+            height: 1080px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #3a2a1f 0%, #1f1410 100%);
+            font-family: 'Georgia', serif;
+        }
+
+        .scene {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Quick cut sequence container */
+        .sequence-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        /* Shot 1: Coffee grinder (0-2.5s) */
+        .shot-grinder {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 1;
+            animation: shotFade1 8s ease-in-out;
+        }
+
+        @keyframes shotFade1 {
+            0%, 31.25% { opacity: 1; }
+            37.5%, 100% { opacity: 0; }
+        }
+
+        .grinder {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 400px;
+        }
+
+        .grinder-body {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
+            border-radius: 20px;
+            box-shadow:
+                inset 5px 5px 15px rgba(255,255,255,0.1),
+                inset -5px -5px 15px rgba(0,0,0,0.5),
+                0 20px 40px rgba(0,0,0,0.6);
+            position: relative;
+        }
+
+        .grinder-top {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, #444 0%, #222 100%);
+            border-radius: 50%;
+            box-shadow:
+                inset 0 -10px 20px rgba(0,0,0,0.5),
+                0 5px 15px rgba(0,0,0,0.4);
+        }
+
+        .grinder-beans {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 180px;
+            height: 180px;
+            animation: grind 2s ease-in-out infinite;
+        }
+
+        @keyframes grind {
+            0%, 100% { transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+            50% { transform: translate(-50%, -50%) rotate(180deg) scale(0.8); }
+        }
+
+        .mini-bean {
+            position: absolute;
+            width: 20px;
+            height: 30px;
+            background: radial-gradient(ellipse, #8B4513, #3e2723);
+            border-radius: 40% 40% 40% 40% / 50% 50% 50% 50%;
+        }
+
+        .mini-bean:nth-child(1) { top: 20%; left: 30%; }
+        .mini-bean:nth-child(2) { top: 25%; left: 60%; }
+        .mini-bean:nth-child(3) { top: 50%; left: 20%; }
+        .mini-bean:nth-child(4) { top: 55%; left: 70%; }
+        .mini-bean:nth-child(5) { top: 75%; left: 40%; }
+
+        /* Shot 2: Grounds cascading (2.5-5s) */
+        .shot-grounds {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            animation: shotFade2 8s ease-in-out;
+        }
+
+        @keyframes shotFade2 {
+            0%, 31.25% { opacity: 0; }
+            37.5%, 62.5% { opacity: 1; }
+            68.75%, 100% { opacity: 0; }
+        }
+
+        .portafilter {
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 150px;
+            background: linear-gradient(180deg, #555 0%, #333 50%, #222 100%);
+            border-radius: 10px;
+            box-shadow:
+                inset 0 5px 10px rgba(255,255,255,0.1),
+                0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .portafilter-basket {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 80px;
+            background: radial-gradient(ellipse at top, #8B4513 0%, #3e2723 50%, #1a0f0a 100%);
+            border-radius: 50% 50% 10px 10px;
+            overflow: hidden;
+        }
+
+        .grounds-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #3e2723;
+            border-radius: 50%;
+            animation: fall 1.5s ease-in infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                top: -50px;
+                opacity: 1;
+            }
+            100% {
+                top: 100px;
+                opacity: 0;
+            }
+        }
+
+        .grounds-particle:nth-child(1) { left: 30%; animation-delay: 0s; }
+        .grounds-particle:nth-child(2) { left: 45%; animation-delay: 0.2s; }
+        .grounds-particle:nth-child(3) { left: 55%; animation-delay: 0.1s; }
+        .grounds-particle:nth-child(4) { left: 70%; animation-delay: 0.3s; }
+        .grounds-particle:nth-child(5) { left: 38%; animation-delay: 0.15s; }
+        .grounds-particle:nth-child(6) { left: 62%; animation-delay: 0.25s; }
+
+        /* Shot 3: Tamping (5-8s) */
+        .shot-tamping {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            animation: shotFade3 8s ease-in-out;
+        }
+
+        @keyframes shotFade3 {
+            0%, 62.5% { opacity: 0; }
+            68.75%, 100% { opacity: 1; }
+        }
+
+        .tamping-scene {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+        }
+
+        .portafilter-tamping {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 350px;
+            height: 180px;
+            background: linear-gradient(180deg, #555 0%, #333 50%, #222 100%);
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+        }
+
+        .coffee-bed {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 250px;
+            height: 100px;
+            background: radial-gradient(ellipse at center, #5d3a1a 0%, #3e2723 60%, #2a1810 100%);
+            border-radius: 50% 50% 5px 5px;
+        }
+
+        .tamper {
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 200px;
+            animation: tamp 2s ease-in-out infinite;
+        }
+
+        @keyframes tamp {
+            0%, 100% {
+                top: -100px;
+            }
+            40%, 60% {
+                top: 20px;
+            }
+        }
+
+        .tamper-handle {
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(180deg, #654321 0%, #4a2511 100%);
+            border-radius: 50px 50px 20px 20px;
+            box-shadow: inset 0 -5px 10px rgba(0,0,0,0.3);
+        }
+
+        .tamper-base {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 170px;
+            height: 80px;
+            background: linear-gradient(180deg, #888 0%, #444 100%);
+            border-radius: 50%;
+            box-shadow:
+                inset 0 5px 10px rgba(255,255,255,0.2),
+                0 5px 15px rgba(0,0,0,0.4);
+        }
+
+        /* Window light effect */
+        .window-light {
+            position: absolute;
+            top: -10%;
+            right: 10%;
+            width: 600px;
+            height: 800px;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 220, 150, 0.3) 0%,
+                rgba(255, 200, 100, 0.1) 50%,
+                transparent 100%
+            );
+            transform: rotate(-20deg);
+            pointer-events: none;
+        }
+
+        /* Vignette */
+        .vignette {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.7) 100%);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="scene">
+        <!-- Shot 1: Grinder -->
+        <div class="shot-grinder">
+            <div class="grinder">
+                <div class="grinder-body">
+                    <div class="grinder-top">
+                        <div class="grinder-beans">
+                            <div class="mini-bean"></div>
+                            <div class="mini-bean"></div>
+                            <div class="mini-bean"></div>
+                            <div class="mini-bean"></div>
+                            <div class="mini-bean"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shot 2: Grounds cascading -->
+        <div class="shot-grounds">
+            <div class="portafilter">
+                <div class="portafilter-basket">
+                    <div class="grounds-particle"></div>
+                    <div class="grounds-particle"></div>
+                    <div class="grounds-particle"></div>
+                    <div class="grounds-particle"></div>
+                    <div class="grounds-particle"></div>
+                    <div class="grounds-particle"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shot 3: Tamping -->
+        <div class="shot-tamping">
+            <div class="tamping-scene">
+                <div class="portafilter-tamping">
+                    <div class="coffee-bed"></div>
+                    <div class="tamper">
+                        <div class="tamper-handle"></div>
+                        <div class="tamper-base"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Window light -->
+        <div class="window-light"></div>
+
+        <!-- Vignette -->
+        <div class="vignette"></div>
+    </div>
+</body>
+</html>

@@ -171,14 +171,17 @@ You will proactively ask for clarification on:
 Your output will be production-ready HTML files that can be immediately used for high-quality video recording.
 
 OUTPUT REQUIREMENTS:
-- You MUST save the complete HTML code to the file path specified in the user prompt
-- Use the file system to create the directory if it doesn't exist, then write the HTML content to the specified file path
-- The HTML file MUST start with <!DOCTYPE html> and include all necessary HTML structure
+- You MUST create a SEPARATE HTML file for EACH SCENE in the script
+- Each scene should be saved as its own HTML file (e.g., scene-1.html, scene-2.html, etc.)
+- Use the base file path specified in the user prompt and append scene numbers (e.g., if path is "video.html", create "video-scene-1.html", "video-scene-2.html", etc.)
+- Use the file system to create the directory if it doesn't exist, then write each HTML file
+- Each HTML file MUST start with <!DOCTYPE html> and include all necessary HTML structure
 - The output HTML MUST be exactly 1920x1080 pixels - enforce this with CSS: html, body { width: 1920px; height: 1080px; margin: 0; padding: 0; overflow: hidden; }
 - Include all CSS inline or in a <style> tag
 - Include all JavaScript inline or in a <script> tag if needed for animations
-- The HTML file should be complete and ready to use
-- Do NOT output the HTML content in your response - save it directly to the file system`;
+- Each HTML file should contain ONLY the animations for that specific scene and its duration
+- Each HTML file should be complete and ready to use
+- Do NOT output the HTML content in your response - save each file directly to the file system`;
 }
 
 /**
@@ -201,7 +204,19 @@ function buildUserPrompt(
   }
   
   if (outputPath) {
-    userPrompt += `\n\nIMPORTANT: Save the generated HTML file to the following path: ${outputPath}\nCreate the directory if it doesn't exist, then write the complete HTML content to this file. Do NOT include the HTML in your response - save it directly to the file system.`;
+    // Extract base path and extension for creating multiple scene files
+    const pathParts = outputPath.split('.');
+    const extension = pathParts.pop() || 'html';
+    const basePath = pathParts.join('.');
+    
+    userPrompt += `\n\nIMPORTANT: Create a SEPARATE HTML file for EACH SCENE in the script.
+- Base file path: ${outputPath}
+- For each scene, create a separate file: ${basePath}-scene-1.${extension}, ${basePath}-scene-2.${extension}, etc.
+- Each HTML file should contain ONLY the animations and visual content for that specific scene
+- Each scene file should match the exact duration specified in the script timestamps
+- Create the directory if it doesn't exist, then write each HTML file separately
+- Do NOT include the HTML content in your response - save each file directly to the file system
+- Make sure each scene file is complete and can be recorded independently`;
   }
   
   return userPrompt;

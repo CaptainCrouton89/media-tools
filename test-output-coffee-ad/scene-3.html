@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <title>Scene 3: The Moment</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 1920px;
+            height: 1080px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f5f0e8 0%, #e8dcc8 100%);
+            font-family: 'Georgia', serif;
+        }
+
+        .scene {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Soft morning background */
+        .background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at 30% 30%, #fff5e6 0%, #f5e6d3 50%, #e8d4b8 100%);
+        }
+
+        /* Window light rays */
+        .light-rays {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(110deg, transparent 30%, rgba(255,250,240,0.3) 45%, rgba(255,250,240,0.5) 50%, rgba(255,250,240,0.3) 55%, transparent 70%),
+                linear-gradient(100deg, transparent 40%, rgba(255,250,240,0.2) 52%, rgba(255,250,240,0.4) 55%, rgba(255,250,240,0.2) 58%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* Espresso extraction (0-4s) */
+        .extraction-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1.2);
+            opacity: 1;
+            animation: extractionPhase 8s ease-in-out;
+        }
+
+        @keyframes extractionPhase {
+            0%, 50% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.2);
+            }
+            55% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+        }
+
+        .espresso-cup {
+            position: relative;
+            width: 400px;
+            height: 300px;
+        }
+
+        .cup-body {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 200px;
+            background: linear-gradient(180deg, #ffffff 0%, #f8f8f8 50%, #e8e8e8 100%);
+            border-radius: 0 0 40% 40%;
+            box-shadow:
+                inset 0 -10px 20px rgba(0,0,0,0.05),
+                0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .cup-rim {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 320px;
+            height: 40px;
+            background: linear-gradient(180deg, #ffffff 0%, #f0f0f0 100%);
+            border-radius: 50%;
+            box-shadow:
+                0 -5px 10px rgba(0,0,0,0.05),
+                inset 0 -3px 5px rgba(0,0,0,0.1);
+        }
+
+        .coffee-surface {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 280px;
+            height: 140px;
+            background: radial-gradient(ellipse at center, #3e2723 0%, #2a1810 70%, #1a0f0a 100%);
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .crema {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: radial-gradient(ellipse at center, #c49a6c 0%, #a67c52 60%, #8b6542 100%);
+            border-radius: 50%;
+            animation: cremaForm 3s ease-out forwards;
+        }
+
+        @keyframes cremaForm {
+            0% { height: 0%; }
+            100% { height: 35%; }
+        }
+
+        .espresso-stream {
+            position: absolute;
+            top: -150px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 150px;
+            opacity: 0;
+            animation: streamPour 3s ease-out forwards;
+        }
+
+        @keyframes streamPour {
+            0% { opacity: 0; height: 0; }
+            20% { opacity: 1; height: 150px; }
+            100% { opacity: 0; height: 150px; }
+        }
+
+        .stream-segment {
+            position: absolute;
+            width: 100%;
+            height: 30px;
+            background: linear-gradient(180deg, #2a1810 0%, rgba(42, 24, 16, 0.8) 100%);
+            border-radius: 50%;
+            animation: drip 0.5s ease-in infinite;
+        }
+
+        .stream-segment:nth-child(1) { top: 0%; animation-delay: 0s; }
+        .stream-segment:nth-child(2) { top: 25%; animation-delay: 0.1s; }
+        .stream-segment:nth-child(3) { top: 50%; animation-delay: 0.2s; }
+        .stream-segment:nth-child(4) { top: 75%; animation-delay: 0.3s; }
+
+        @keyframes drip {
+            0%, 100% { transform: scaleY(1); opacity: 1; }
+            50% { transform: scaleY(1.2); opacity: 0.8; }
+        }
+
+        /* Person with cup (4-8s) */
+        .person-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            animation: personPhase 8s ease-in-out;
+        }
+
+        @keyframes personPhase {
+            0%, 50% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            55%, 100% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        .person-silhouette {
+            position: relative;
+            width: 800px;
+            height: 800px;
+        }
+
+        /* Simplified person holding cup */
+        .person-head {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 220px;
+            background: linear-gradient(135deg, #d4a574 0%, #b8865f 100%);
+            border-radius: 50% 50% 45% 45%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .person-body {
+            position: absolute;
+            top: 35%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 350px;
+            background: linear-gradient(180deg, #8b7355 0%, #6d5a45 100%);
+            border-radius: 40px 40px 10px 10px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .person-arm-left {
+            position: absolute;
+            top: 40%;
+            left: 30%;
+            width: 150px;
+            height: 80px;
+            background: linear-gradient(90deg, #8b7355 0%, #6d5a45 100%);
+            border-radius: 40px;
+            transform: rotate(-30deg);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .person-arm-right {
+            position: absolute;
+            top: 40%;
+            right: 30%;
+            width: 150px;
+            height: 80px;
+            background: linear-gradient(90deg, #6d5a45 0%, #8b7355 100%);
+            border-radius: 40px;
+            transform: rotate(30deg);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .held-cup {
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 130px;
+            z-index: 10;
+        }
+
+        .held-cup-body {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #ffffff 0%, #f0f0f0 100%);
+            border-radius: 0 0 35% 35%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .held-cup-coffee {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            height: 50%;
+            background: radial-gradient(ellipse at center, #8b6542 0%, #3e2723 100%);
+            border-radius: 50%;
+        }
+
+        /* Steam rising from cup */
+        .steam-container {
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 200px;
+            z-index: 5;
+        }
+
+        .steam-wisp {
+            position: absolute;
+            bottom: 0;
+            width: 30px;
+            height: 30px;
+            background: radial-gradient(circle, rgba(255,255,255,0.6), transparent);
+            border-radius: 50%;
+            animation: steamRise 3s ease-out infinite;
+        }
+
+        .steam-wisp:nth-child(1) { left: 40%; animation-delay: 0s; }
+        .steam-wisp:nth-child(2) { left: 55%; animation-delay: 0.7s; }
+        .steam-wisp:nth-child(3) { left: 48%; animation-delay: 1.4s; }
+
+        @keyframes steamRise {
+            0% {
+                bottom: 0;
+                opacity: 0;
+                transform: translateX(0) scale(0.5);
+            }
+            30% {
+                opacity: 0.8;
+            }
+            100% {
+                bottom: 200px;
+                opacity: 0;
+                transform: translateX(20px) scale(1.5);
+            }
+        }
+
+        /* Warm glow effect */
+        .warm-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(255,200,100,0.2) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* Soft vignette */
+        .vignette {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.15) 100%);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="scene">
+        <!-- Background -->
+        <div class="background"></div>
+
+        <!-- Light rays -->
+        <div class="light-rays"></div>
+
+        <!-- Espresso extraction (first 4 seconds) -->
+        <div class="extraction-container">
+            <div class="espresso-cup">
+                <div class="cup-rim"></div>
+                <div class="cup-body">
+                    <div class="coffee-surface">
+                        <div class="crema"></div>
+                    </div>
+                </div>
+                <div class="espresso-stream">
+                    <div class="stream-segment"></div>
+                    <div class="stream-segment"></div>
+                    <div class="stream-segment"></div>
+                    <div class="stream-segment"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Person with cup (last 4 seconds) -->
+        <div class="person-container">
+            <div class="person-silhouette">
+                <div class="person-head"></div>
+                <div class="person-body"></div>
+                <div class="person-arm-left"></div>
+                <div class="person-arm-right"></div>
+                <div class="held-cup">
+                    <div class="held-cup-body">
+                        <div class="held-cup-coffee"></div>
+                    </div>
+                </div>
+                <div class="steam-container">
+                    <div class="steam-wisp"></div>
+                    <div class="steam-wisp"></div>
+                    <div class="steam-wisp"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Warm glow -->
+        <div class="warm-glow"></div>
+
+        <!-- Vignette -->
+        <div class="vignette"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <title>Scene 4: The Brand Reveal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 1920px;
+            height: 1080px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f5f0e8 0%, #e8dcc8 100%);
+            font-family: 'Georgia', serif;
+        }
+
+        .scene {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Clean background */
+        .background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #faf8f3 0%, #f0ebe0 50%, #e8dcc8 100%);
+        }
+
+        /* Wooden surface */
+        .wooden-surface {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background:
+                linear-gradient(90deg, rgba(101, 67, 33, 0.1) 1px, transparent 1px),
+                linear-gradient(rgba(101, 67, 33, 0.05) 1px, transparent 1px),
+                linear-gradient(135deg, #8b6f47 0%, #6d563a 50%, #4a3820 100%);
+            background-size: 100px 100px, 100px 100px, 100% 100%;
+            box-shadow: inset 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .wood-grain {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background:
+                repeating-linear-gradient(
+                    90deg,
+                    rgba(101, 67, 33, 0.1) 0px,
+                    transparent 2px,
+                    transparent 80px,
+                    rgba(101, 67, 33, 0.15) 82px,
+                    transparent 84px
+                );
+            opacity: 0.5;
+        }
+
+        /* Product container */
+        .product-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            opacity: 0;
+            animation: productReveal 8s ease-out forwards;
+        }
+
+        @keyframes productReveal {
+            0% {
+                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 0;
+            }
+            20% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Coffee bag */
+        .coffee-bag {
+            position: relative;
+            width: 400px;
+            height: 600px;
+            background: linear-gradient(180deg, #2c2416 0%, #1f1810 100%);
+            border-radius: 20px;
+            box-shadow:
+                0 30px 60px rgba(0,0,0,0.4),
+                inset 5px 5px 20px rgba(255,255,255,0.05);
+            z-index: 10;
+        }
+
+        .bag-seal {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 40px;
+            background: linear-gradient(90deg, #654321 0%, #4a2511 50%, #654321 100%);
+            border-radius: 5px;
+            box-shadow: inset 0 -2px 5px rgba(0,0,0,0.3);
+        }
+
+        .brand-logo-area {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 85%;
+            height: 65%;
+            background: radial-gradient(ellipse at center, rgba(255,255,255,0.1) 0%, transparent 70%);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .brand-name {
+            font-size: 72px;
+            font-weight: bold;
+            color: #d4a574;
+            text-shadow:
+                0 2px 4px rgba(0,0,0,0.3),
+                0 0 20px rgba(212, 165, 116, 0.3);
+            letter-spacing: 8px;
+            animation: brandGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes brandGlow {
+            0% { text-shadow: 0 2px 4px rgba(0,0,0,0.3), 0 0 20px rgba(212, 165, 116, 0.3); }
+            100% { text-shadow: 0 2px 4px rgba(0,0,0,0.3), 0 0 30px rgba(212, 165, 116, 0.5); }
+        }
+
+        .brand-icon {
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, #d4a574 0%, #b8865f 100%);
+            border-radius: 50%;
+            box-shadow:
+                0 5px 15px rgba(0,0,0,0.3),
+                inset 0 -5px 10px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .icon-bean {
+            width: 40px;
+            height: 60px;
+            background: radial-gradient(ellipse, #3e2723, #1a0f0a);
+            border-radius: 40% 40% 40% 40% / 50% 50% 50% 50%;
+            box-shadow: inset -2px -2px 5px rgba(0,0,0,0.5);
+        }
+
+        .icon-bean::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 2px;
+            height: 80%;
+            background: rgba(0,0,0,0.4);
+            border-radius: 1px;
+        }
+
+        .brand-tagline {
+            font-size: 32px;
+            color: #a67c52;
+            font-style: italic;
+            letter-spacing: 3px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* Full cup with steam */
+        .cup-container {
+            position: absolute;
+            top: 50%;
+            right: -350px;
+            transform: translateY(-50%);
+            width: 300px;
+            height: 300px;
+            animation: cupSlideIn 8s ease-out forwards;
+        }
+
+        @keyframes cupSlideIn {
+            0% { right: -350px; opacity: 0; }
+            30% { right: -350px; opacity: 0; }
+            60% { right: 150px; opacity: 1; }
+            100% { right: 150px; opacity: 1; }
+        }
+
+        .cup {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 250px;
+            height: 200px;
+            background: linear-gradient(180deg, #ffffff 0%, #f0f0f0 100%);
+            border-radius: 0 0 40% 40%;
+            box-shadow:
+                inset 0 -10px 20px rgba(0,0,0,0.05),
+                0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .cup-rim {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 270px;
+            height: 35px;
+            background: linear-gradient(180deg, #ffffff 0%, #f0f0f0 100%);
+            border-radius: 50%;
+            box-shadow: 0 -3px 8px rgba(0,0,0,0.05);
+        }
+
+        .coffee-level {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 230px;
+            height: 140px;
+            background: radial-gradient(ellipse at center, #5d3a1a 0%, #3e2723 60%, #2a1810 100%);
+            border-radius: 50%;
+        }
+
+        .coffee-crema {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background: radial-gradient(ellipse at center, #c49a6c 0%, #a67c52 100%);
+            border-radius: 50%;
+        }
+
+        /* Steam wisps */
+        .steam {
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 200px;
+        }
+
+        .steam-particle {
+            position: absolute;
+            bottom: 0;
+            width: 35px;
+            height: 35px;
+            background: radial-gradient(circle, rgba(255,255,255,0.6), transparent);
+            border-radius: 50%;
+            animation: steamFloat 3s ease-out infinite;
+        }
+
+        .steam-particle:nth-child(1) { left: 35%; animation-delay: 0s; }
+        .steam-particle:nth-child(2) { left: 50%; animation-delay: 0.8s; }
+        .steam-particle:nth-child(3) { left: 60%; animation-delay: 1.6s; }
+
+        @keyframes steamFloat {
+            0% {
+                bottom: 0;
+                opacity: 0;
+                transform: translateX(0) scale(0.5);
+            }
+            30% {
+                opacity: 0.8;
+            }
+            100% {
+                bottom: 200px;
+                opacity: 0;
+                transform: translateX(25px) scale(1.5);
+            }
+        }
+
+        /* Text overlay */
+        .text-overlay {
+            position: absolute;
+            bottom: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            opacity: 0;
+            animation: textFadeIn 8s ease-out forwards;
+        }
+
+        @keyframes textFadeIn {
+            0%, 50% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+            70%, 100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+
+        .tagline-text {
+            font-size: 56px;
+            font-weight: 600;
+            color: #3e2723;
+            letter-spacing: 4px;
+            text-shadow: 0 2px 8px rgba(255,255,255,0.8);
+        }
+
+        .tagline-subtext {
+            font-size: 32px;
+            color: #654321;
+            font-style: italic;
+            margin-top: 10px;
+            letter-spacing: 2px;
+        }
+
+        /* Ambient lighting */
+        .ambient-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 1000px;
+            height: 1000px;
+            background: radial-gradient(circle, rgba(212, 165, 116, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+            animation: pulseGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        /* Subtle vignette */
+        .vignette {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.1) 100%);
+            pointer-events: none;
+        }
+
+        /* Spotlight effect */
+        .spotlight {
+            position: absolute;
+            top: -20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 140%;
+            background: radial-gradient(ellipse at center top, rgba(255,250,240,0.4) 0%, transparent 60%);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="scene">
+        <!-- Background -->
+        <div class="background"></div>
+
+        <!-- Wooden surface -->
+        <div class="wooden-surface">
+            <div class="wood-grain"></div>
+        </div>
+
+        <!-- Spotlight -->
+        <div class="spotlight"></div>
+
+        <!-- Ambient glow -->
+        <div class="ambient-glow"></div>
+
+        <!-- Product (coffee bag) -->
+        <div class="product-container">
+            <div class="coffee-bag">
+                <div class="bag-seal"></div>
+                <div class="brand-logo-area">
+                    <div class="brand-icon">
+                        <div class="icon-bean"></div>
+                    </div>
+                    <div class="brand-name">AURORA</div>
+                    <div class="brand-tagline">Premium Coffee</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cup with coffee -->
+        <div class="cup-container">
+            <div class="steam">
+                <div class="steam-particle"></div>
+                <div class="steam-particle"></div>
+                <div class="steam-particle"></div>
+            </div>
+            <div class="cup-rim"></div>
+            <div class="cup">
+                <div class="coffee-level">
+                    <div class="coffee-crema"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Text overlay -->
+        <div class="text-overlay">
+            <div class="tagline-text">AURORA COFFEE</div>
+            <div class="tagline-subtext">Elevate Your Morning</div>
+        </div>
+
+        <!-- Vignette -->
+        <div class="vignette"></div>
+    </div>
+</body>
+</html>

@@ -1,10 +1,12 @@
 import { execSync } from "child_process";
 import {
+    existsSync,
     readFileSync,
     renameSync,
     unlinkSync,
 } from "fs";
-import { resolve } from "path";
+import { homedir } from "os";
+import { join, resolve } from "path";
 import puppeteer from "puppeteer";
 import { PuppeteerScreenRecorder } from "puppeteer-screen-recorder";
 
@@ -61,9 +63,38 @@ export async function takeScreenshotOfHtml(options: {
   }
 
   // Launch browser
+  // Try to find Chrome executable path
+  let executablePath: string | undefined;
+  const platform = process.platform;
+  
+  if (platform === 'darwin') {
+    // Prefer system Chrome
+    const systemChrome = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+    if (existsSync(systemChrome)) {
+      executablePath = systemChrome;
+    } else {
+      // Fallback to Puppeteer-installed Chrome
+      const cacheDir = `${homedir()}/.cache/puppeteer/chrome`;
+      if (existsSync(cacheDir)) {
+        try {
+          const versions = execSync(`ls "${cacheDir}" | head -1`, { encoding: 'utf-8' }).trim();
+          if (versions) {
+            const chromePath = join(cacheDir, versions, 'chrome-mac-arm64', 'Google Chrome for Testing.app', 'Contents', 'MacOS', 'Google Chrome for Testing');
+            if (existsSync(chromePath)) {
+              executablePath = chromePath;
+            }
+          }
+        } catch (error) {
+          // Ignore errors
+        }
+      }
+    }
+  }
+
   const browser = await puppeteer.launch({ 
-    headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
+    headless: "new",
+    args: platform === 'darwin' ? [] : ['--no-sandbox', '--disable-setuid-sandbox'],
+    ...(executablePath ? { executablePath } : {})
   });
   const page = await browser.newPage();
 

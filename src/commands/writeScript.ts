@@ -1,6 +1,6 @@
 import { Args, Flags } from '@oclif/core';
-import { BaseCommand } from '../utils/command-base.js';
 import { writeScript as writeScriptImpl } from '../lib/writeScript.js';
+import { BaseCommand } from '../utils/command-base.js';
 
 export default class WriteScript extends BaseCommand {
   static override description = 'Generate a script from source material';
