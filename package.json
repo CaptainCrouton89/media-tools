@@ -1,6 +1,6 @@
 {
   "name": "cli-boilerplate",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Generic CLI boilerplate template for building command-line tools with oclif",
   "type": "module",
   "bin": {
